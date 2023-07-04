@@ -16,7 +16,12 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/color.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-
+	<style>
+		.home {
+			margin-left: 100px
+			
+		}
+	</style> 
 </head>
 <body>
 <!--<div class="se-pre-con"></div>-->
@@ -31,7 +36,7 @@
 
 					{% csrf_token %}
 					<div class="add-btn">
-					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b></span>
+					<span style="color: white; font-size: 27px; "><b><u><a href="/" >Home</a></u></b></span>
 					
 						{% if user_post_length == 0 %}
 						<span style="color: white; font-size: 27px;"><b>No Posts </b></span>
@@ -40,15 +45,37 @@
 						{% else %}
 						<span style="color: white; font-size: 27px;"><b>{{user_post_length}} Posts </b></span>
 						{% endif %}
-
-					<span style="color: white; font-size: 27px;"><b>1.7m followers</b></span>
-					<span style="color: white; font-size: 27px;"><b>3.5k following</b></span>
-
-					<input type="hidden" value="{{user.username}}" name="follower" />
-					<input type="hidden" value="{{user_object.username}}" name="user" />
-
-					<a type="submit" data-ripple=""><button style="background-color: #ffc0cb; border: #ffc0cb;">Follow</button></a>
 					
+					{% if user_followers == 0 %}
+					<span style="color: white; font-size: 27px;"><b>No followers</b></span>
+
+					{% elif user_followers == 1 %}
+					<span style="color: white; font-size: 27px;"><b>1 follower</b></span>
+
+					{% else  %}
+					<span style="color: white; font-size: 27px;"><b>{{user_followers}} followers</b></span>
+					
+					{% endif %}
+
+					
+					{% if user_followers == 0 %}
+					<span style="color: white; font-size: 27px;"><b>0 following</b></span>
+					
+					{% else %}
+					<span style="color: white; font-size: 27px;"><b>{{user_following}} following</b></span>
+
+					{% endif %}
+
+					<input type="hidden" value="{{user.username}}" name="follower" /> 
+					{% comment %} kasle follow gareko {% endcomment %}
+					<input type="hidden" value="{{user_object.username}}" name="user" /> 
+					{% comment %} kaslai follow gareko {% endcomment %}
+
+					{% if user.username == user_object.username %}
+					<a href="/settings">Account Settings</a>
+					{% else %}
+					<a type="submit" data-ripple=""><button style="background-color: #ffc0cb; border: #ffc0cb;">{{button_text}}</button></a>
+					{% endif %}
 
 					</div>
 				</form>
