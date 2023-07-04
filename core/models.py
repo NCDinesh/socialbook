@@ -12,19 +12,6 @@ class Profile(models.Model):
     profileimg = models.ImageField(upload_to='profile_images', default="blank.png",height_field=None, width_field=None, max_length=None)
     location = models.CharField(max_length=50, blank=True)
 
-
-
-
-
-
-class Post(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.CharField(max_length=100)
-    
-    image = models.ImageField(upload_to='post_images', default=None,  height_field=None, width_field=None, max_length=None)
-    caption = models.TextField( )
-    created_at = models.DateTimeField(default=datetime.now)
-    no_of_likes = models.IntegerField(default=0)
 # Create your models here.
 
     def __str__(self):
@@ -45,3 +32,12 @@ class FollowerCount(models.Model):
     
     def __str__(self):
         return self.user
+    
+class Post(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    user = models.CharField(max_length=100)
+    
+    image = models.ImageField(upload_to='post_images', default=None,  height_field=None, width_field=None, max_length=None)
+    caption = models.TextField( )
+    created_at = models.DateTimeField(default=datetime.now)
+    no_of_likes = models.IntegerField(default=0)
